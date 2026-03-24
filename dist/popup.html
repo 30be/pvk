@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 380px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 13px;
+      color: #e0e0e0;
+      background: #1a1a2e;
+      padding: 16px;
+    }
+    h1 {
+      font-size: 16px;
+      margin-bottom: 12px;
+      color: #4CAF50;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h1::before { content: "\1F512"; }
+    label {
+      display: block;
+      font-weight: 600;
+      margin: 12px 0 4px;
+      color: #aaa;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 8px;
+      border: 1px solid #333;
+      border-radius: 6px;
+      background: #16213e;
+      color: #e0e0e0;
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+      font-size: 11px;
+      resize: vertical;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: #4CAF50;
+    }
+    .status {
+      margin-top: 12px;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      text-align: center;
+    }
+    .status.ok { background: #1b3a1b; color: #4CAF50; }
+    .status.warn { background: #3a3a1b; color: #e0a030; }
+    .convo-id {
+      font-size: 11px;
+      color: #666;
+      margin-top: 8px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>PVK</h1>
+
+  <label>Your Private Key</label>
+  <textarea id="privateKey" placeholder="-----BEGIN PGP PRIVATE KEY BLOCK-----&#10;...&#10;-----END PGP PRIVATE KEY BLOCK-----" rows="3"></textarea>
+
+  <label>Recipient Public Key (this chat)</label>
+  <textarea id="recipientKey" placeholder="-----BEGIN PGP PUBLIC KEY BLOCK-----&#10;...&#10;-----END PGP PUBLIC KEY BLOCK-----" rows="3"></textarea>
+
+  <div id="status" class="status warn">No keys configured</div>
+  <div id="convoId" class="convo-id"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
