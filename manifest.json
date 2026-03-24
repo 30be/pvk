@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "PVK — VK PGP Encryption",
+  "version": "1.0.0",
+  "description": "End-to-end PGP encryption for VK messages",
+  "permissions": ["storage"],
+  "host_permissions": ["https://vk.com/*"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://vk.com/im*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

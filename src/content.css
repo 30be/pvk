@@ -1,0 +1,134 @@
+.pvk-composer {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.pvk-input {
+  flex: 1;
+  min-height: 36px;
+  max-height: 200px;
+  padding: 8px 12px;
+  border: 2px solid #4CAF50;
+  border-radius: 8px;
+  background: #1a1a2e;
+  color: #e0e0e0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.pvk-send-btn {
+  width: 36px;
+  height: 36px;
+  border: 2px solid #4CAF50;
+  border-radius: 50%;
+  background: #4CAF50;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.pvk-send-btn:hover {
+  background: #66BB6A;
+}
+
+.pvk-share-key-btn {
+  width: 36px;
+  height: 36px;
+  border: 2px solid #64B5F6;
+  border-radius: 50%;
+  background: transparent;
+  color: #64B5F6;
+  font-size: 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.pvk-share-key-btn:hover {
+  background: rgba(100, 181, 246, 0.15);
+}
+
+.pvk-input::placeholder {
+  color: #4CAF50;
+  opacity: 0.6;
+}
+
+.pvk-input:focus {
+  border-color: #66BB6A;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.pvk-decrypted {
+  display: inline;
+  color: #4CAF50;
+}
+
+.pvk-decrypted-text {
+  color: inherit;
+}
+
+.pvk-decrypt-failed {
+  color: #e0a030;
+  font-style: italic;
+}
+
+.pvk-generate-btn {
+  width: 100%;
+  padding: 10px 16px;
+  border: 2px dashed #4CAF50;
+  border-radius: 8px;
+  background: transparent;
+  color: #4CAF50;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pvk-generate-btn:hover {
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.pvk-generate-btn:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.pvk-key-msg {
+  color: #64B5F6;
+}
+
+.pvk-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a2e;
+  color: #e0e0e0;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: 1px solid #4CAF50;
+  font-size: 14px;
+  z-index: 999999;
+  animation: pvk-fade-in 0.2s ease;
+}
+
+@keyframes pvk-fade-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
