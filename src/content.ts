@@ -12,6 +12,7 @@ const KEY_ICON = "\u{1F511}";
 let pvkTextarea: HTMLTextAreaElement | null = null;
 let pvkSendBtn: HTMLButtonElement | null = null;
 let pvkGenerateBtn: HTMLButtonElement | null = null;
+let pvkStandaloneShareBtn: HTMLButtonElement | null = null;
 let isActive = false;
 
 // --- Send button coloring ---
@@ -133,6 +134,42 @@ function removeGenerateButton() {
   if (pvkGenerateBtn) {
     pvkGenerateBtn.remove();
     pvkGenerateBtn = null;
+  }
+}
+
+function injectShareKeyButton() {
+  if (pvkStandaloneShareBtn) return;
+  const inputPanel = document.querySelector(".ConvoComposer__inputPanel");
+  if (!inputPanel) return;
+
+  pvkStandaloneShareBtn = document.createElement("button");
+  pvkStandaloneShareBtn.className = "pvk-share-key-btn";
+  pvkStandaloneShareBtn.textContent = KEY_ICON;
+  pvkStandaloneShareBtn.title = "Send your public key to this chat";
+  pvkStandaloneShareBtn.style.alignSelf = "center";
+  pvkStandaloneShareBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const privKey = await getPrivateKey();
+    if (!privKey) return;
+    const pubKey = await getPublicKeyFromPrivate(privKey);
+    pasteAndSend(`${PVK_KEY_PREFIX}${pubKey}`);
+    showToast("Public key sent!");
+  });
+
+  // Insert before the emoji/mic buttons at the end
+  const inputWrapper = getInputWrapper();
+  if (inputWrapper) {
+    inputPanel.insertBefore(pvkStandaloneShareBtn, inputWrapper);
+  } else {
+    inputPanel.appendChild(pvkStandaloneShareBtn);
+  }
+}
+
+function removeShareKeyButton() {
+  if (pvkStandaloneShareBtn) {
+    pvkStandaloneShareBtn.remove();
+    pvkStandaloneShareBtn = null;
   }
 }
 
@@ -416,10 +453,17 @@ async function checkActivation() {
   }
 
   // Show generate button when no private key yet
+  // Show share key button when we have private key but no recipient key
   if (!privateKey) {
     injectGenerateButton();
+    removeShareKeyButton();
   } else {
     removeGenerateButton();
+    if (!recipientKey && !isActive) {
+      injectShareKeyButton();
+    } else {
+      removeShareKeyButton();
+    }
   }
 
   // Always process key exchange and decrypt
@@ -439,6 +483,8 @@ function activate() {
 function deactivate() {
   isActive = false;
   removeTextarea();
+  removeShareKeyButton();
+  removeGenerateButton();
   colorSendButton(false);
 }
 
